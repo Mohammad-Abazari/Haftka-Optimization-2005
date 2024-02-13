@@ -1,0 +1,18 @@
+clc; clear; close all; format compact;
+Y = 100; % in
+P = 10000; % lb
+syms A1 A2 A3 x1 x2 x3 E real positive
+L1 = sqrt(Y^2+x1^2); L2 = sqrt(Y^2+x2^2); L3 = sqrt(Y^2+x3^2);
+c1 = x1/L1; c2 = x2/L2; c3 = x3/L3;
+s1 = -Y/L1; s2 = -Y/L2; s3 = -Y/L3;
+t1 = [c1,s1;-s1,c1]; t2 = [c2,s2;-s2,c2]; t3 = [c3,s3;-s3,c3];
+T1 = [t1,zeros(2); zeros(2),t1]; T2 = [t2,zeros(2); zeros(2),t2]; T3 = [t3,zeros(2); zeros(2),t3];
+kh = [1,0,-1,0; 0,0,0,0;-1,0,1,0; 0,0,0,0];
+k1 = A1*E/L1*kh; K1 = T1'*k1*T1;
+k2 = A2*E/L2*kh; K2 = T2'*k2*T2;
+k3 = A3*E/L3*kh; K3 = T3'*k3*T3;
+Kr = simplify(K1(3:4,3:4)+K2(3:4,3:4)+K3(3:4,3:4));
+Kr(1,1)
+Kr(2,1)
+Kr(2,2)
+C1 = [-]
